@@ -8,7 +8,8 @@
   <!-- TODO: Replace with your paper title and author names -->
   <meta name="title" content="Black-Box Optimization for Identifying and Inverting Audio Dynamic Range Control Effects - Haoran Sun, Dominique Fourer, Hichem Maaref">
   <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content=" Dynamic Range Control (DRC) is a widely used audio effect that adjusts signal dynamics for applications in music production, broadcasting, and speech processing. Inverting DRC is of broad importance in restoring the original dynamics, enabling remixing, and enhancing the overall audio quality. Existing DRC inversion methods either overlook key parameters or rely on precise parameter values, which can be challenging to estimate accurately.  To address this limitation, we make two main contributions. First, building on a widely used model-based compression inversion framework, we derive and validate an analytical inversion method for dynamic range expansion, enabling a unified treatment of both compression and expansion effects. Second, we propose a hybrid parameter estimation framework that combines classification and regression strategies: classification is used to identify DRC profiles when strong priors are available, while regression enables parameter estimation for unconstrained DRC configurations. The estimated parameters are used for model-based signal recovery from its compressed or expanded version. Experimental evaluations across various music and speech datasets confirm the effectiveness and robustness of our approach, outperforming several state-of-the-art end-to-end deep learning techniques. ">
+  <meta name="description" content="Dynamic Range Compression (DRC) is a widely used nonlinear audio effect whose parameters are often unknown, making blind estimation and inversion challenging. In this work, we formulate DRC parameter estimation as a black-box optimization problem in a perceptually motivated feature space. 
+Given an observed signal and a reference representation, we estimate the parameters that minimize the distance between feature descriptors of the reconstructed and reference signals. Unlike gradient-based approaches, the proposed method does not require differentiability of the DRC model or the feature extraction pipeline, enabling the use of nonlinear and histogram-based descriptors. Experimental results show that the proposed method achieves competitive performance for blind parameter estimation and dry signal recovery compared to an end-to-end CleanUMamba baseline. ">
   <!-- TODO: Add 5-10 relevant keywords for your research area -->
   <meta name="keywords" content="Audio Effect Inversion, Dynamic Range Control (DRC), Audio Signal Restoration, Audio Quality.">
   <!-- TODO: List all authors -->
@@ -23,7 +24,8 @@
   <!-- TODO: Same as paper title above -->
   <meta property="og:title" content="Black-Box Optimization for Identifying and Inverting Audio Dynamic Range Control Effects">
   <!-- TODO: Same as description above -->
-  <meta property="og:description" content=" Dynamic Range Control (DRC) is a widely used audio effect that adjusts signal dynamics for applications in music production, broadcasting, and speech processing. Inverting DRC is of broad importance in restoring the original dynamics, enabling remixing, and enhancing the overall audio quality. Existing DRC inversion methods either overlook key parameters or rely on precise parameter values, which can be challenging to estimate accurately.  To address this limitation, we make two main contributions. First, building on a widely used model-based compression inversion framework, we derive and validate an analytical inversion method for dynamic range expansion, enabling a unified treatment of both compression and expansion effects. Second, we propose a hybrid parameter estimation framework that combines classification and regression strategies: classification is used to identify DRC profiles when strong priors are available, while regression enables parameter estimation for unconstrained DRC configurations. The estimated parameters are used for model-based signal recovery from its compressed or expanded version. Experimental evaluations across various music and speech datasets confirm the effectiveness and robustness of our approach, outperforming several state-of-the-art end-to-end deep learning techniques. ">
+  <meta property="og:description" content=" Dynamic Range Compression (DRC) is a widely used nonlinear audio effect whose parameters are often unknown, making blind estimation and inversion challenging. In this work, we formulate DRC parameter estimation as a black-box optimization problem in a perceptually motivated feature space. 
+Given an observed signal and a reference representation, we estimate the parameters that minimize the distance between feature descriptors of the reconstructed and reference signals. Unlike gradient-based approaches, the proposed method does not require differentiability of the DRC model or the feature extraction pipeline, enabling the use of nonlinear and histogram-based descriptors. Experimental results show that the proposed method achieves competitive performance for blind parameter estimation and dry signal recovery compared to an end-to-end CleanUMamba baseline. ">
   <!-- TODO: Replace with your actual website URL -->
   <meta property="og:url" content="https://HDRC-inv.github.io">
   <!-- TODO: Create a 1200x630px preview image and update path -->
@@ -253,7 +255,7 @@
         <div class="content has-text-justified">
           <!-- TODO: Replace with your paper abstract -->
           <p>
-            Dynamic Range Control (DRC) is a widely used audio effect that adjusts signal dynamics for applications in music production, broadcasting, and speech processing. Inverting DRC is of broad importance in restoring the original dynamics, enabling remixing, and enhancing the overall audio quality. Existing DRC inversion methods either overlook key parameters or rely on precise parameter values, which can be challenging to estimate accurately.  To address this limitation, we make two main contributions. First, building on a widely used model-based compression inversion framework, we derive and validate an analytical inversion method for dynamic range expansion, enabling a unified treatment of both compression and expansion effects. Second, we propose a hybrid parameter estimation framework that combines classification and regression strategies: classification is used to identify DRC profiles when strong priors are available, while regression enables parameter estimation for unconstrained DRC configurations. The estimated parameters are used for model-based signal recovery from its compressed or expanded version. Experimental evaluations across various music and speech datasets confirm the effectiveness and robustness of our approach, outperforming several state-of-the-art end-to-end deep learning techniques.
+            Dynamic Range Compression (DRC) is a widely used nonlinear audio effect whose parameters are often unknown, making blind estimation and inversion challenging. In this work, we formulate DRC parameter estimation as a black-box optimization problem in a perceptually motivated feature space. Given an observed signal and a reference representation, we estimate the parameters that minimize the distance between feature descriptors of the reconstructed and reference signals. Unlike gradient-based approaches, the proposed method does not require differentiability of the DRC model or the feature extraction pipeline, enabling the use of nonlinear and histogram-based descriptors. Experimental results show that the proposed method achieves competitive performance for blind parameter estimation and dry signal recovery compared to an end-to-end CleanUMamba baseline.
         </div>
       </div>
     </div>
@@ -262,34 +264,516 @@
 <!-- End paper abstract -->
 
 
-<!-- task chain Image carousel -->
+<!-- Feature space visualization -->
 <section class="section">
   <div class="container is-max-desktop">
     
-    <h2 class="title is-3 has-text-centered">Proposed Method</h2>
+    <h2 class="title is-3 has-text-centered">Feature Space Visualization ([DH1, DH4, DH5])</h2>
 
     <div class="content">
 
       <!-- Figure 1 -->
-      <figure class="image box">
-        <img src="static/images/task_chain_3.png" alt="Proposed hybrid end-to-end DRC inversion framework" loading="lazy">
+      <figure class="image box mt-5">
+        <img src="static/images/success_comp_all.png" alt="DRC task chain" loading="lazy">
       </figure>
       <p class="has-text-centered is-size-7">
-        <b>Figure 1.</b> Proposed hybrid end-to-end DRC inversion framework combining classification and regression pathways.
+        <b>Figure 1.</b> Compression.
       </p>
 
       <!-- Figure 2 -->
       <figure class="image box mt-5">
-        <img src="static/images/DRC_chain.png" alt="DRC task chain" loading="lazy">
+        <img src="static/images/success_exp_all.png" alt="DRC task chain" loading="lazy">
       </figure>
       <p class="has-text-centered is-size-7">
-        <b>Figure 2.</b> DRC task chain.
+        <b>Figure 2.</b> Expansion.
       </p>
+      
     </div>
 
   </div>
 </section>
 <!-- End task chain image carousel -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">
+      Distance and Recovery Summary
+    </h2>
+
+    <div class="content has-text-justified mb-5">
+      <p>
+        Mean Euclidean distances to the reference, mean recovery score, and
+        success ratio across all styles for the three ranking strategies.
+      </p>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth is-size-6">
+        <thead>
+          <tr>
+            <th>Ranking Strategy</th>
+            <th>Effect</th>
+            <th>Mean \( \| \mathbf{x}-\mathbf{y} \| \)</th>
+            <th>Mean \( \| \mathbf{x}-\hat{\mathbf{x}} \| \)</th>
+            <th>Success Ratio (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cross-Profile</td>
+            <td>Compression</td>
+            <td>2.619</td>
+            <td>1.296</td>
+            <td><strong>90.80</strong></td>
+          </tr>
+          <tr>
+            <td>Cross-Profile</td>
+            <td>Expansion</td>
+            <td>0.550</td>
+            <td>0.383</td>
+            <td>68.00</td>
+          </tr>
+          <tr>
+            <td>Binary</td>
+            <td>Compression</td>
+            <td>1.152</td>
+            <td>0.941</td>
+            <td>65.47</td>
+          </tr>
+          <tr>
+            <td>Binary</td>
+            <td>Expansion</td>
+            <td>0.591</td>
+            <td>0.950</td>
+            <td>48.27</td>
+          </tr>
+          <tr>
+            <td>Recovery</td>
+            <td>Compression</td>
+            <td>1.917</td>
+            <td>1.153</td>
+            <td>84.93</td>
+          </tr>
+          <tr>
+            <td>Recovery</td>
+            <td>Expansion</td>
+            <td>1.075</td>
+            <td>0.675</td>
+            <td><strong>80.00</strong></td>
+          </tr>
+          <tr>
+            <td>Success-Rate</td>
+            <td>Compression</td>
+            <td>2.619</td>
+            <td>1.296</td>
+            <td><strong>90.80</strong></td>
+          </tr>
+          <tr>
+            <td>Success-Rate</td>
+            <td>Expansion</td>
+            <td>1.075</td>
+            <td>0.675</td>
+            <td><strong>80.00</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Resultes image carousel -->
+<section class="section">
+  <div class="container is-max-desktop">
+    
+    <h2 class="title is-3 has-text-centered">DRC Inversion Results</h2>
+
+    <div class="content">
+
+      <!-- Figure 1 -->
+      <figure class="image box mt-5">
+        <img src="static/images/baseline_comp.png" alt="Compression inversion results on large datasets" loading="lazy">
+      </figure>
+      <p class="has-text-centered is-size-7">
+        <b>Figure 1.</b> Compression inversion results.
+      </p>
+
+      <!-- Figure 2 -->
+      <figure class="image box mt-5">
+        <img src="static/images/baseline_exp.png" alt="Expansion inversion results on large datasets" loading="lazy">
+      </figure>
+      <p class="has-text-centered is-size-7">
+        <b>Figure 2.</b> Expansion inversion results.
+      </p>
+
+    </div>
+
+  </div>
+</section>
+<!-- End results image carousel -->
+
+<!-- Audio Hearing Examples -->
+<section class="section">
+  <div class="container is-max-desktop audio-demo-section">
+    <h2 class="title is-3 has-text-centered">Audio Hearing Examples</h2>
+
+    <div class="content has-text-justified mb-5">
+      <p>
+        We provide hearing examples for both <strong>compression</strong> and
+        <strong>expansion</strong> inversion tasks. Each task contains five musical
+        styles. For every style, we present the original 5-second excerpt together
+        with the processed signal and several recovered versions produced by
+        different inversion methods.
+      </p>
+    </div>
+
+    <style>
+      .audio-demo-section .audio-block {
+        margin-top: 2.5rem;
+      }
+
+      .audio-demo-section .audio-caption {
+        margin-bottom: 0.9rem;
+      }
+
+      .audio-demo-section .audio-caption .subtitle {
+        margin-bottom: 0.35rem;
+      }
+
+      .audio-demo-section .audio-caption p {
+        margin: 0;
+        color: #666;
+        font-size: 0.96rem;
+      }
+
+      .audio-demo-section .table-container {
+        border: 1px solid #e8e8e8;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        background: #fff;
+      }
+
+      .audio-demo-section .audio-table {
+        margin-bottom: 0;
+        font-size: 0.92rem;
+      }
+
+      .audio-demo-section .audio-table thead th {
+        background: #f8f8f8;
+        color: #222;
+        border-width: 0 0 1px;
+        vertical-align: middle;
+      }
+
+      .audio-demo-section .audio-table td,
+      .audio-demo-section .audio-table th {
+        vertical-align: middle;
+      }
+
+      .audio-demo-section .style-cell {
+        min-width: 120px;
+        font-weight: 700;
+        color: #222;
+        background: #fcfcfc;
+      }
+
+      .audio-demo-section .variant-cell {
+        min-width: 220px;
+        font-weight: 600;
+      }
+
+      .audio-demo-section .variant-original {
+        color: #0f766e;
+      }
+
+      .audio-demo-section .variant-processed {
+        color: #92400e;
+      }
+
+      .audio-demo-section .variant-recovered {
+        color: #1d4ed8;
+      }
+
+      .audio-demo-section .group-start td {
+        border-top: 2px solid #dcdcdc;
+      }
+
+      .audio-demo-section audio {
+        width: 100%;
+        min-width: 260px;
+        max-width: 420px;
+      }
+
+      .audio-demo-section .task-chip {
+        display: inline-block;
+        padding: 0.2rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        background: #eef3ff;
+        color: #3557a5;
+        margin-bottom: 0.45rem;
+      }
+
+      @media screen and (max-width: 768px) {
+        .audio-demo-section .audio-table {
+          font-size: 0.86rem;
+        }
+
+        .audio-demo-section audio {
+          min-width: 220px;
+        }
+      }
+    </style>
+
+    <!-- Compression -->
+    <div class="audio-block">
+      <div class="audio-caption">
+        <span class="task-chip">Compression Task</span>
+        <h3 class="title is-5 subtitle">Inversion Results for Compression</h3>
+        <p>
+          Five music styles are shown below. Each group contains the original excerpt,
+          the compressed signal, and six recovered outputs from different methods.
+        </p>
+      </div>
+
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable audio-table">
+          <thead>
+            <tr>
+              <th>Style</th>
+              <th>Variant</th>
+              <th>Audio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Style 1 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 1</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/original.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+            <tr>
+              <td class="variant-cell variant-processed">Compressed</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/compressed.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+            <tr>
+              <td class="variant-cell variant-recovered">Recovered (Ground Truth)</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/recovered_ground_truth.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+            <tr>
+              <td class="variant-cell variant-recovered">Recovered (Pattern Search)</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/recovered_pattern_search.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+            <tr>
+              <td class="variant-cell variant-recovered">Recovered (Bayes)</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/recovered_bayes.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+            <tr>
+              <td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/recovered_bayes_mee.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+            <tr>
+              <td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/recovered_cleanumamba.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+            <tr>
+              <td class="variant-cell variant-recovered">Recovered (MEE)</td>
+              <td>
+                <audio controls preload="none">
+                  <source src="static/audios/compression/classical/recovered_mee.wav" type="audio/wav">
+                </audio>
+              </td>
+            </tr>
+
+            <!-- Style 2 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 2</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/compression/electronic/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Compressed</td><td><audio controls preload="none"><source src="static/audios/compression/electronic/compressed.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/compression/electronic/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/compression/electronic/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/compression/electronic/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/electronic/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/compression/electronic/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/electronic/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+
+            <!-- Style 3 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 3</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/compression/jazz/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Compressed</td><td><audio controls preload="none"><source src="static/audios/compression/jazz/compressed.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/compression/jazz/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/compression/jazz/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/compression/jazz/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/jazz/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/compression/jazz/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/jazz/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+
+            <!-- Style 4 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 4</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/compression/pop/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Compressed</td><td><audio controls preload="none"><source src="static/audios/compression/pop/compressed.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/compression/pop/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/compression/pop/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/compression/pop/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/pop/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/compression/pop/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/pop/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+
+            <!-- Style 5 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 5</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/compression/rock/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Compressed</td><td><audio controls preload="none"><source src="static/audios/compression/rock/compressed.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/compression/rock/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/compression/rock/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/compression/rock/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/rock/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/compression/rock/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/compression/rock/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Expansion -->
+    <div class="audio-block">
+      <div class="audio-caption">
+        <span class="task-chip">Expansion Task</span>
+        <h3 class="title is-5 subtitle">Inversion Results for Expansion</h3>
+        <p>
+          The same presentation format is used for the expansion task for easy
+          comparison across styles and inversion methods.
+        </p>
+      </div>
+
+      <div class="table-container">
+        <table class="table is-fullwidth is-hoverable audio-table">
+          <thead>
+            <tr>
+              <th>Style</th>
+              <th>Variant</th>
+              <th>Audio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Style 1 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 1</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/expansion/classical/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Expanded</td><td><audio controls preload="none"><source src="static/audios/expansion/classical/expanded.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/expansion/classical/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/expansion/classical/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/expansion/classical/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/classical/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/expansion/classical/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/classical/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+
+            <!-- Style 2 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 2</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/expansion/electronic/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Expanded</td><td><audio controls preload="none"><source src="static/audios/expansion/electronic/expanded.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/expansion/electronic/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/expansion/electronic/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/expansion/electronic/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/electronic/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/expansion/electronic/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/electronic/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+
+            <!-- Style 3 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 3</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/expansion/jazz/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Expanded</td><td><audio controls preload="none"><source src="static/audios/expansion/jazz/expanded.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/expansion/jazz/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/expansion/jazz/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/expansion/jazz/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/jazz/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/expansion/jazz/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/jazz/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+
+            <!-- Style 4 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 4</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/expansion/pop/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Expanded</td><td><audio controls preload="none"><source src="static/audios/expansion/pop/expanded.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/expansion/pop/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/expansion/pop/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/expansion/pop/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/pop/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/expansion/pop/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/pop/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+
+            <!-- Style 5 -->
+            <tr class="group-start">
+              <td class="style-cell" rowspan="8">Style 5</td>
+              <td class="variant-cell variant-original">Original</td>
+              <td><audio controls preload="none"><source src="static/audios/expansion/rock/original.wav" type="audio/wav"></audio></td>
+            </tr>
+            <tr><td class="variant-cell variant-processed">Expanded</td><td><audio controls preload="none"><source src="static/audios/expansion/rock/expanded.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Ground Truth)</td><td><audio controls preload="none"><source src="static/audios/expansion/rock/recovered_ground_truth.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Pattern Search)</td><td><audio controls preload="none"><source src="static/audios/expansion/rock/recovered_pattern_search.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes)</td><td><audio controls preload="none"><source src="static/audios/expansion/rock/recovered_bayes.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (Bayes+MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/rock/recovered_bayes_mee.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (CleanUMamba)</td><td><audio controls preload="none"><source src="static/audios/expansion/rock/recovered_cleanumamba.wav" type="audio/wav"></audio></td></tr>
+            <tr><td class="variant-cell variant-recovered">Recovered (MEE)</td><td><audio controls preload="none"><source src="static/audios/expansion/rock/recovered_mee.wav" type="audio/wav"></audio></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- End Audio Hearing Examples -->
+
 
 <!-- DRC profile tables -->
 <section class="section">
@@ -297,93 +781,12 @@
 
     <!-- Section Title -->
     <h2 class="title is-3 has-text-centered">
-      DRC Profiles
+      Detailed Parameters of 30 DRC Profiles
     </h2>
 
     <!-- table 1 -->
-    <h3 class="title is-5">Dataset Parameter Settings</h3>
-
-    <div class="table-container">
-      <table class="table is-bordered is-striped is-hoverable is-fullwidth is-size-7">
-        <thead>
-          <tr>
-            <th rowspan="2">Parameter</th>
-            <th rowspan="2">Description</th>
-            <th colspan="5">Small dataset (6 classes)</th>
-            <th rowspan="2">Large dataset (31 classes)</th>
-          </tr>
-          <tr>
-            <th>A</th>
-            <th>B</th>
-            <th>C</th>
-            <th>D</th>
-            <th>E</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>L<sub>c</sub> (dBFS)</td>
-            <td>Threshold (compressor)</td>
-            <td>-32</td><td>-19.9</td><td>-24.4</td><td>-26.3</td><td>-38.0</td>
-            <td>[-60, -20]</td>
-          </tr>
-
-          <tr>
-            <td>L<sub>e</sub> (dBFS)</td>
-            <td>Threshold (expander)</td>
-            <td>-12</td><td>-19.9</td><td>-24.4</td><td>-26.3</td><td>-18.0</td>
-            <td>[-40, -10]</td>
-          </tr>
-
-          <tr>
-            <td>R (dB<sub>in</sub>:dB<sub>out</sub>)</td>
-            <td>Ratio</td>
-            <td>3.0</td><td>1.8</td><td>3.2</td><td>7.3</td><td>4.9</td>
-            <td>[2, 15]</td>
-          </tr>
-
-          <tr>
-            <td>τ<sub>v</sub><sup>att</sup> (ms)</td>
-            <td>Envelope attack</td>
-            <td colspan="5">5</td>
-            <td>[5, 130]</td>
-          </tr>
-
-          <tr>
-            <td>τ<sub>v</sub><sup>rel</sup> (ms)</td>
-            <td>Envelope release</td>
-            <td colspan="5">5</td>
-            <td>[5, 130]</td>
-          </tr>
-
-          <tr>
-            <td>τ<sub>g</sub><sup>att</sup> (ms)</td>
-            <td>Gain attack</td>
-            <td>13.0</td><td>11.0</td><td>5.8</td><td>9.0</td><td>13.1</td>
-            <td>[10, 500]</td>
-          </tr>
-
-          <tr>
-            <td>τ<sub>g</sub><sup>rel</sup> (ms)</td>
-            <td>Gain release</td>
-            <td>435</td><td>49</td><td>112</td><td>705</td><td>257</td>
-            <td>[25, 2000]</td>
-          </tr>
-
-          <tr>
-            <td>p (1 or 2)</td>
-            <td>Detector type</td>
-            <td colspan="5">2</td>
-            <td>2</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- table 2 -->
     <h3 class="title is-5" style="margin-top: 2rem;">
-      Detailed Parameters of 30 DRC Profiles
+      Detailed 30 compressors:
     </h3>
 
     <div class="table-container">
@@ -436,293 +839,62 @@
       </table>
     </div>
 
+    <!-- table 2 -->
+    <h3 class="title is-5" style="margin-top: 2rem;">
+      Detailed 30 expanders:
+    </h3>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth is-size-7">
+        <thead>
+          <tr>
+            <th>Profile</th>
+            <th>L(dB)</th>
+            <th>R</th>
+            <th>τ<sub>v</sub><sup>att</sup>(ms)</th>
+            <th>τ<sub>v</sub><sup>rel</sup>(ms)</th>
+            <th>τ<sub>g</sub><sup>att</sup>(ms)</th>
+            <th>τ<sub>g</sub><sup>rel</sup>(ms)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>-12.6</td><td>7.2</td><td>231.2</td><td>1280.9</td><td>497.3</td><td>1988.1</td></tr>
+          <tr><td>2</td><td>-22.9</td><td>5.1</td><td>370.4</td><td>1262.1</td><td>118.8</td><td>581.9</td></tr>
+          <tr><td>3</td><td>-23.9</td><td>4.3</td><td>78.8</td><td>251.0</td><td>322.8</td><td>1395.8</td></tr>
+          <tr><td>4</td><td>-26.6</td><td>5.2</td><td>129.0</td><td>1911.8</td><td>286.2</td><td>603.5</td></tr>
+          <tr><td>5</td><td>-28.0</td><td>9.5</td><td>100.8</td><td>167.6</td><td>59.7</td><td>994.8</td></tr>
+          <tr><td>6</td><td>-21.5</td><td>5.4</td><td>421.4</td><td>341.1</td><td>46.0</td><td>714.1</td></tr>
+          <tr><td>7</td><td>-23.8</td><td>3.4</td><td>492.1</td><td>919.8</td><td>363.0</td><td>1781.5</td></tr>
+          <tr><td>8</td><td>-24.6</td><td>9.5</td><td>199.9</td><td>1278.0</td><td>102.4</td><td>693.3</td></tr>
+          <tr><td>9</td><td>-13.9</td><td>9.3</td><td>365.8</td><td>1906.0</td><td>385.1</td><td>1004.4</td></tr>
+          <tr><td>10</td><td>-28.2</td><td>8.7</td><td>338.9</td><td>1350.3</td><td>411.2</td><td>1211.4</td></tr>
+          <tr><td>11</td><td>-20.1</td><td>4.1</td><td>68.9</td><td>1954.4</td><td>398.6</td><td>1230.3</td></tr>
+          <tr><td>12</td><td>-18.2</td><td>9.8</td><td>382.5</td><td>633.8</td><td>186.3</td><td>384.7</td></tr>
+          <tr><td>13</td><td>-20.2</td><td>4.3</td><td>465.3</td><td>1762.0</td><td>50.0</td><td>203.5</td></tr>
+          <tr><td>14</td><td>-26.8</td><td>3.1</td><td>48.5</td><td>674.0</td><td>436.6</td><td>1050.5</td></tr>
+          <tr><td>15</td><td>-19.2</td><td>1.2</td><td>461.2</td><td>1939.3</td><td>185.6</td><td>762.8</td></tr>
+          <tr><td>16</td><td>-14.8</td><td>8.2</td><td>85.3</td><td>780.2</td><td>47.2</td><td>111.4</td></tr>
+          <tr><td>17</td><td>-15.6</td><td>4.6</td><td>190.8</td><td>628.9</td><td>120.0</td><td>523.6</td></tr>
+          <tr><td>18</td><td>-29.8</td><td>6.2</td><td>220.9</td><td>1822.2</td><td>80.0</td><td>766.7</td></tr>
+          <tr><td>19</td><td>-24.3</td><td>7.7</td><td>144.0</td><td>531.9</td><td>61.7</td><td>1143.5</td></tr>
+          <tr><td>20</td><td>-17.7</td><td>3.5</td><td>108.0</td><td>1888.7</td><td>176.6</td><td>1257.7</td></tr>
+          <tr><td>21</td><td>-11.4</td><td>8.7</td><td>477.6</td><td>1723.2</td><td>445.9</td><td>1880.8</td></tr>
+          <tr><td>22</td><td>-30.0</td><td>6.6</td><td>283.7</td><td>1750.4</td><td>172.4</td><td>1194.0</td></tr>
+          <tr><td>23</td><td>-27.0</td><td>8.6</td><td>499.1</td><td>992.3</td><td>355.5</td><td>1194.4</td></tr>
+          <tr><td>24</td><td>-14.8</td><td>4.9</td><td>56.5</td><td>1428.1</td><td>496.3</td><td>1374.5</td></tr>
+          <tr><td>25</td><td>-10.5</td><td>3.8</td><td>123.2</td><td>512.6</td><td>176.7</td><td>1341.6</td></tr>
+          <tr><td>26</td><td>-17.8</td><td>4.6</td><td>468.2</td><td>156.1</td><td>194.1</td><td>942.9</td></tr>
+          <tr><td>27</td><td>-29.5</td><td>1.8</td><td>113.0</td><td>1612.2</td><td>321.1</td><td>1012.9</td></tr>
+          <tr><td>28</td><td>-24.8</td><td>7.9</td><td>67.2</td><td>1383.5</td><td>301.3</td><td>586.1</td></tr>
+          <tr><td>29</td><td>-18.1</td><td>7.0</td><td>395.5</td><td>740.8</td><td>462.8</td><td>1808.1</td></tr>
+          <tr><td>30</td><td>-12.9</td><td>9.3</td><td>295.7</td><td>320.9</td><td>339.6</td><td>1568.6</td></tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </section>
 <!-- End DRC profile table -->
-
-<!-- Resultes image carousel -->
-<section class="section">
-  <div class="container is-max-desktop">
-    
-    <h2 class="title is-3 has-text-centered">DRC Inversion Results</h2>
-
-    <div class="content">
-
-      <!-- Figure 1 -->
-      <figure class="image box mt-5">
-        <img src="static/images/baseline_drc_large_1.png" alt="Compression inversion results on large datasets" loading="lazy">
-      </figure>
-      <p class="has-text-centered is-size-7">
-        <b>Figure 1.</b> Compression inversion results on the large datasets.
-      </p>
-
-      <!-- Figure 2 -->
-      <figure class="image box mt-5">
-        <img src="static/images/baseline_expand_large_1.png" alt="Expansion inversion results on large datasets" loading="lazy">
-      </figure>
-      <p class="has-text-centered is-size-7">
-        <b>Figure 2.</b> Expansion inversion results on the large datasets.
-      </p>
-
-    </div>
-
-  </div>
-</section>
-<!-- End results image carousel -->
-
-<!-- Audio Hearing Examples -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Audio Hearing Examples</h2>
-
-    <div class="content mb-5">
-      <p>
-        We provide several audio examples to compare different inversion methods. 
-        The original audio is a 5-second chunk extracted from the MedleyDB dataset.
-      </p>
-    </div>
-    
-    <div class="table-container">
-      <table class="table is-fullwidth is-striped is-hoverable audio-table">
-        <thead>
-          <tr>
-            <th>Model</th>
-            <th>Audio</th>
-            <th>\( \mathcal{L}^{\text{MSE}}_{\hat{x},x} \downarrow \)</th>
-            <th>\( \mathcal{L}^{\text{Mel}}_{\hat{x},x} \downarrow \)</th>
-            <th>SISDR \( \uparrow \) </th>
-            <th>2f-score \( \uparrow \) </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>Original</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/original.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>\</td><td>\</td><td>\</td><td>\</td>
-          </tr>
-          
-          <tr>
-            <td colspan="6" style="text-align:center; font-weight:bold;">
-              Compression, with the compressor: [-32, 3, 5, 5, 13, 435, 2]
-            </td>
-          </tr>
-          
-          <tr>
-            <td>Compressed</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/compressed.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.0046</td><td>1.18</td><td>9.83</td><td>28.38</td>
-          </tr>
-
-          <tr>
-            <td>Ref</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_ref.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td> \(7.34 \times 10^{-7} \) </td><td>0.0097</td><td>71.21</td><td>97.00</td>
-          </tr>
-
-          <tr>
-            <td>Anchor</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_anchor.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.64</td><td>3.07</td><td>0.44</td><td>8.06</td>
-          </tr>
-
-          <tr>
-            <td>AST</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_ast.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td> \( 3.27 \times 10^{-6} \) </td><td>0.019</td><td>41.19</td><td>89.20</td>
-          </tr>
-
-          <tr>
-            <td>MEE</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_mee.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.027</td><td>0.57</td><td>14.29</td><td>39.96</td>
-          </tr>
-
-          <tr>
-            <td>Demucs</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_demucs.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.18</td><td>0.73</td><td>10.18</td><td>22.50</td>
-          </tr>
-
-          <tr>
-            <td>HDemucs</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_hdemucs.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.026</td><td>0.49</td><td>18.72</td><td>45.78</td>
-          </tr>
-
-          <tr>
-            <td>De-Limiter</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_delimiter.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.0035</td><td>0.077</td><td>29.76</td><td>53.35</td>
-          </tr>
-
-          <tr>
-            <td>CleanUMamba</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/compression/decompressed_cleanumamba.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.0011</td><td>0.036</td><td>34.29</td><td>57.10</td>
-          </tr>
-
-          <tr>
-            <td colspan="6" style="text-align:center; font-weight:bold;">
-              Expansion, with the expander: [-26.3, 7.3, 5, 5, 13, 435, 2]
-            </td>
-          </tr>
-
-          <tr>
-            <td>Expanded</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/expanded.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.0051</td><td>1.08</td><td>9.30</td><td>23.76</td>
-          </tr>
-
-          <tr>
-            <td>Ref</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_ref.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td> \(6.41 \times 10^{-7} \) </td><td>0.0027</td><td>71.68</td><td>95.80</td>
-          </tr>
-
-          <tr>
-            <td>Anchor</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_anchor.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.011</td><td>0.52</td><td>8.74</td><td>21.11</td>
-          </tr>
-
-          <tr>
-            <td>AST</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_ast.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.00012</td><td>0.0081</td><td>35.96</td><td>62.06</td>
-          </tr>
-
-          <tr>
-            <td>MEE</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_mee.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.015</td><td>0.035</td><td>23.78</td><td>50.09</td>
-          </tr>
-
-          <tr>
-            <td>Demucs</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_demucs.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.56</td><td>0.70</td><td>6.56</td><td>20.13</td>
-          </tr>
-
-          <tr>
-            <td>HDemucs</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_hdemucs.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.24</td><td>0.33</td><td>13.95</td><td>43.62</td>
-          </tr>
-
-          <tr>
-            <td>De-Limiter</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_delimiter.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.0024</td><td>0.69</td><td>68.62</td><td>39.56</td>
-          </tr>
-
-          <tr>
-            <td>CleanUMamba</td>
-            <td>
-              <audio controls preload="none" style="width: 100%; max-width: 400px;">
-                <source src="static/audios/expansion/dexpanded_cleanumamba.wav" type="audio/wav">
-                Your browser does not support the audio element.
-              </audio>
-            </td>
-            <td>0.00035</td><td>0.77</td><td>16.38</td><td>32.38</td>
-          </tr>
-        </tbody>
-
-      </table>
-    </div>
-  </div>
-</section>
-<!-- End Audio Hearing Examples -->
 
 
   <footer class="footer">
